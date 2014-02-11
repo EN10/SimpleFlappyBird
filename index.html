@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<head>  <meta name="viewport" content="width=device-width, user-scalable=no">   </head>
 <body>
 <h1>Simple Flappy Bird</h1>
 <canvas id="draw" onmousedown="flap()"></canvas>
@@ -8,9 +9,21 @@ var g = document.getElementById("draw").getContext("2d");
 setInterval(function(){tick()},50);
 var r = Math.floor(Math.random()*100);
 var y = 10;                     // Start Bird Top
-var x = 200;                    // Start Pipe Right
+var x = -20;                    // Start Pipe Right
 
+function tick(){                // Screen Refresh
+y = y + 1;
+if (x > -20)  
+{ x = x-1; }
+else
+{ x = 300;  r = Math.floor(Math.random()*100); }
 drawGame();
+}
+
+function flap(){
+y = y-10;
+drawGame();
+}
 
 function drawGame(){
 g.fillStyle = "white";          // Clear Screen
@@ -21,19 +34,8 @@ g.fillRect(x,0,25,r);
 g.fillRect(x,r+40,25,100);
 
 var bird = new Image();         // Draw Bird
-bird.src = 'https://googledrive.com/host/0B_sbHq8TRiIsZEdUdVBJemJIbm8/FP.jpg';
+bird.src = "https://googledrive.com/host/0B_sbHq8TRiIsZEdUdVBJemJIbm8/Bird.png";
 g.drawImage(bird,50,y);
-}
-
-function tick(){                // Screen Refresh
-y = y+1;
-x = x-1;
-drawGame();
-}
-
-function flap(){
-y = y-10;
-drawGame();
 }
 
 </script>
