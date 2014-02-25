@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html>
 <head>  <meta name="viewport" content="width=device-width, user-scalable=no">   </head>
 <body>
-<h1>Simple Flappy Bird</h1>
+<h1 id="header">Simple Flappy Bird</h1>
 <canvas id="draw" onmousedown="flap()"></canvas>
 <script>
 var g = document.getElementById("draw").getContext("2d");
@@ -10,22 +11,21 @@ setInterval(function(){tick()},50);
 var r = Math.floor(Math.random()*100);
 var y = 10;                     // Start Bird Top
 var x = -20;                    // Start Pipe Right
+var score = 0;
 
-function tick(){                // Screen Refresh
+function tick() {               // Screen Refresh
 y = y + 1;
 if (x > -20)  
 { x = x-1; }
 else
 { x = 300;  r = Math.floor(Math.random()*100); }
-drawGame();
-}
+  drawGame();   }
 
-function flap(){
+function flap() {  
 y = y-10;
-drawGame();
-}
+drawGame();     }
 
-function drawGame(){
+function drawGame() {
 g.fillStyle = "white";          // Clear Screen
 g.fillRect(0,0,300,200);
 
@@ -36,6 +36,19 @@ g.fillRect(x,r+40,25,100);
 var bird = new Image();         // Draw Bird
 bird.src = "https://googledrive.com/host/0B_sbHq8TRiIsZEdUdVBJemJIbm8/Bird.png";
 g.drawImage(bird,50,y);
+
+g.fillStyle="blue";             // Draw Score
+g.font="30px Arial";
+g.fillText(score,100,25);
+
+if (x>50 && x<75 && (y<r || y>r+40) )   {
+    x=55; y=10000;              // Lose Game
+    g.fillStyle="red";
+    g.font="30px Arial";
+    g.fillText("GAME OVER!",25,75);     }
+
+if (x==50 && y>r && y<r+40)  
+{ score = score+1; }
 }
 
 </script>
